@@ -57,13 +57,14 @@ app.layout = html.Div(children=[html.H1('SpaceX Launch Records Dashboard',
 def get_pie_chart(entered_site):
     filtered_df = spacex_df
     if entered_site == 'ALL':
-        fig = px.pie(filtered_df, values='class', 
-        names='Launch Site', 
+        fig = px.pie(filtered_df, values='class',
+        names='Launch Site',
         title='Total Success Launches by Site')
         return fig
     else:
+        filtered_df = spacex_df[spacex_df['Launch Site']==entered_site]
         fig = px.pie(filtered_df,
-        names='class', 
+        names='class',
         title='Total Success Launches for site '+ entered_site)
         return fig
 
@@ -81,8 +82,8 @@ def get_scatter_plot(site,payload_range):
     #print(filtered_df)
 
     if site == 'ALL':
-        fig = px.scatter(spacex_df, 
-        x='Payload Mass (kg)', 
+        fig = px.scatter(spacex_df,
+        x='Payload Mass (kg)',
         y='class',
         color='Booster Version',
         range_x=payload_range,
@@ -90,8 +91,8 @@ def get_scatter_plot(site,payload_range):
         return fig
     else:
         filtered_df = spacex_df[spacex_df['Launch Site']==site]
-        fig = px.scatter(filtered_df, 
-        x='Payload Mass (kg)', 
+        fig = px.scatter(filtered_df,
+        x='Payload Mass (kg)',
         y='class',
         color='Booster Version',
         range_x=payload_range,
